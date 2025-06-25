@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 import Button from "@/components/shared/button";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import { toast } from "sonner";
 import { useSubscriptions } from "@/hooks/subscription/use-subscription";
 import { formatNumber } from "@/helpers/format-to-standard-form";

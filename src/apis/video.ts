@@ -31,7 +31,7 @@ class Videos {
     }
   }
 
-  async getAllUserVideos({ page = 1, limit = 10 }: { page?:number, limit?:number }) {
+  async getAllUserVideos({ page = 1}: { page?:number, limit?:number }) {
     try {
       const response = await axios.get(`${baseRoute}/${videosBaseRoute}/get-user-videos?page=${page}`, {
         withCredentials: true,

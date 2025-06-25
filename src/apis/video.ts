@@ -5,7 +5,7 @@ const videosBaseRoute = config.videos;
 const baseRoute = config.baseRoute;
 
 class Videos {
-  async getVideo({ videoId }) {
+  async getVideo({ videoId }: { videoId: string }) {
     try {
       const response = await axios.get(`${baseRoute}/${videosBaseRoute}/${videoId}`, {
         withCredentials: true,
@@ -44,7 +44,7 @@ class Videos {
     }
   }
 
-  async getChannelVideos({ channelId, page = 1, limit = 10 }) {
+  async getChannelVideos({ channelId, page = 1, limit = 10 }: { channelId: string; page?: number; limit?: number }) {
     console.log('request received');
     
     try {
@@ -59,7 +59,7 @@ class Videos {
     }
   }
 
-  async publishVideo(data) {
+  async publishVideo(data: FormData) {
     try {
       const response = await axios.post(`${baseRoute}/${videosBaseRoute}/`, data, {
         headers: {
@@ -67,7 +67,7 @@ class Videos {
         },
         withCredentials: true,
       });
-      console.log("response:",response);
+      console.log("response:", response);
       return response.data.data;
     } catch (error) {
       console.log(error);
@@ -75,7 +75,7 @@ class Videos {
     }
   }
 
-  async updateVideo({ videoId}, data) {
+  async updateVideo({ videoId }: { videoId: string }, data: FormData) {
     try {
       const response = await axios.patch(
         `${baseRoute}/${videosBaseRoute}/${videoId}`,
@@ -90,7 +90,7 @@ class Videos {
     }
   }
 
-  async deleteVideo({ videoId }) {
+  async deleteVideo({ videoId }: { videoId: string }) {
     try {
       const response = await axios.delete(`${baseRoute}/${videosBaseRoute}/${videoId}`, {
         withCredentials: true,
@@ -103,7 +103,7 @@ class Videos {
     }
   }
 
-  async togglePublishStatus({ videoId }) {
+  async togglePublishStatus({ videoId }: { videoId: string }) {
     try {
       const response = await axios.patch(
         `${baseRoute}/${videosBaseRoute}/toggle-publish/${videoId}`,

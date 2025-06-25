@@ -5,7 +5,7 @@ const tweetBaseRoute = config.tweets;
 const baseRoute = config.baseRoute;
 
 class Tweets {
-    async createTweet({ content }) {
+    async createTweet({ content }: { content: string }) {
         try {
             const response = await axios.post(`${baseRoute}/${tweetBaseRoute}/`, { content },{ withCredentials: true });
             console.log(response);
@@ -15,7 +15,7 @@ class Tweets {
         }
     }
 
-    async getTweet({ id }) {
+    async getTweet({ id }: { id: string }) {
         try {
             const response = await axios.get(`${baseRoute}/${tweetBaseRoute}/user/${id}`,{ withCredentials: true });
             console.log(response);
@@ -25,7 +25,7 @@ class Tweets {
         }
     }
 
-    async updateTweet({ id, content }) {
+    async updateTweet({ id, content }: { id: string; content: string }) {
         try {
             const response = await axios.put(`${baseRoute}/${tweetBaseRoute}/${id}`, { content },{ withCredentials: true });
             console.log(response);
@@ -35,7 +35,7 @@ class Tweets {
         }
     }
 
-    async deleteTweet({ id }) {
+    async deleteTweet({ id }: { id: string }) {
         try {
             const response = await axios.delete(`${baseRoute}/${tweetBaseRoute}/${id}`,{ withCredentials: true });
             console.log(response);

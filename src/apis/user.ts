@@ -5,7 +5,7 @@ const usersBaseRoute = config.users;
 const baseRoute = config.baseRoute;
 
 class Users {
-  async changePassword({ oldPassword, newPassword }) {
+  async changePassword({ oldPassword, newPassword }: { oldPassword: string; newPassword: string }) {
     try {
       const response = await axios.post(
         `${baseRoute}/${usersBaseRoute}/change-password`,
@@ -37,7 +37,7 @@ class Users {
     }
   }
 
-  async updateAccountDetails({ fullName, email }) {
+  async updateAccountDetails({ fullName, email }: { fullName: string; email: string }) {
     try {
       const response = await axios.patch(
         `${baseRoute}/${usersBaseRoute}/update-account`,
@@ -55,7 +55,7 @@ class Users {
     }
   }
 
-  async getUserChannelProfile({ userId }) {
+  async getUserChannelProfile({ userId }: { userId: string }) {
     try {
       const response = await axios.get(
         `${baseRoute}/${usersBaseRoute}/c/${userId}`,

@@ -4,7 +4,7 @@ import config from "../config/config.js";
 const likeBaseRoute = config.likes;
 
 class Likes {
-    async toggleVideoLike({ videoId }) {
+    async toggleVideoLike({ videoId }: { videoId: string }) {
         try {
             const response = await axios.post(`${likeBaseRoute}/toggle/v/${videoId}`);
             console.log(response);
@@ -15,7 +15,7 @@ class Likes {
         }
     }
 
-    async toggleCommentLike({ commentId }) {
+    async toggleCommentLike({ commentId }: { commentId: string }) {
         try {
             const response = await axios.post(`${likeBaseRoute}/toggle/c/${commentId}`);
             console.log(response);
@@ -26,7 +26,7 @@ class Likes {
         }
     }
 
-    async toggleTweetLike({ tweetId }) {
+    async toggleTweetLike({ tweetId }: { tweetId: string }) {
         try {
             const response = await axios.post(`${likeBaseRoute}/toggle/t/${tweetId}`);
             console.log(response);

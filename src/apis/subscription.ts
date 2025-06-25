@@ -5,7 +5,7 @@ const subscriptionBaseRoute = config.subscriptions;
 const baseRoute = config.baseRoute;
 
 class Subscriptions {
-  async toggleSubscription({ channelId }) {
+  async toggleSubscription({ channelId }: { channelId: string }) {
     try {
       const response = await axios.post(
         `${baseRoute}/${subscriptionBaseRoute}/c/${channelId}`,
@@ -18,7 +18,7 @@ class Subscriptions {
     }
   }
 
-  async getSubscriptions({ subscriberId }) {
+  async getSubscriptions({ subscriberId }: { subscriberId: string }) {
     try {
       const response = await axios.get(
         `${baseRoute}/${subscriptionBaseRoute}/u/${subscriberId}`,
@@ -30,7 +30,7 @@ class Subscriptions {
     }
   }
 
-  async getSubscribers({ channelId }) {
+  async getSubscribers({ channelId }: { channelId: string }) {
     try {
       const response = await axios.get(
         `${baseRoute}/${subscriptionBaseRoute}/c/${channelId}`,

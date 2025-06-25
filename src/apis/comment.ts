@@ -5,7 +5,7 @@ const commentBaseRoute = config.comments;
 const baseRoute = config.baseRoute;
 
 class Comments {
-  async addComment({ content, videoId }) {
+  async addComment({ content, videoId }: { content: string; videoId: string }) {
     try {
       const response = await axios.post(
         `${baseRoute}/${commentBaseRoute}/${videoId}`,
@@ -21,7 +21,7 @@ class Comments {
     }
   }
 
-  async getComments({ videoId }) {
+  async getComments({ videoId }: { videoId: string }) {
     try {
       const response = await axios.get(
         `${baseRoute}/${commentBaseRoute}/${videoId}`,
@@ -36,7 +36,7 @@ class Comments {
     }
   }
 
-  async updateComment({ commentId, content }) {
+  async updateComment({ commentId, content }: { commentId: string; content: string }) {
     try {
       const response = await axios.patch(
         `${baseRoute}/${commentBaseRoute}/c/${commentId}`,
@@ -52,7 +52,7 @@ class Comments {
     }
   }
 
-  async deleteComment({ commentId }) {
+  async deleteComment({ commentId }: { commentId: string }) {
     try {
       const response = await axios.delete(
         `${baseRoute}/${commentBaseRoute}/c/${commentId}`,

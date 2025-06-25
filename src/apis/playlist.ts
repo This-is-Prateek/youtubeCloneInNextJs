@@ -5,7 +5,7 @@ const playlistBaseRoute = config.playlists;
 const baseRoute = config.baseRoute;
 
 class Playlist {
-    async createPlaylist({ name, description }) {
+    async createPlaylist({ name, description }: { name: string; description: string }) {
         try {
             const response = await axios.post(`${baseRoute}/${playlistBaseRoute}/`,
                 {
@@ -22,7 +22,7 @@ class Playlist {
         }
     }
 
-    async getPlaylist({ playlistId }) {
+    async getPlaylist({ playlistId }: { playlistId: string }) {
         try {
             const response = await axios.get(`${baseRoute}/${playlistBaseRoute}/${playlistId}`,{withCredentials: true})
             console.log(response);
@@ -33,7 +33,7 @@ class Playlist {
         }
     }
 
-    async getUserPlaylists({ userId }) {
+    async getUserPlaylists({ userId }: { userId: string }) {
         try {
             const response = await axios.get(`${baseRoute}/${playlistBaseRoute}/user/${userId}`,{withCredentials: true})
             console.log(response);
@@ -44,7 +44,7 @@ class Playlist {
         }
     }
 
-    async addVideoToPlaylist({ playlistId, videoId }) {
+    async addVideoToPlaylist({ playlistId, videoId }: { playlistId: string; videoId: string }) {
         try {
             const response = await axios.patch(`${baseRoute}/${playlistBaseRoute}/add/${videoId}/${playlistId}`,{withCredentials: true})
             console.log(response);
@@ -55,7 +55,7 @@ class Playlist {
         }
     }
 
-    async removeVideoFromPlaylist({ playlistId, videoId }) {
+    async removeVideoFromPlaylist({ playlistId, videoId }: { playlistId: string; videoId: string }) {
         try {
             const response = await axios.patch(`${baseRoute}/${playlistBaseRoute}/remove/${videoId}/${playlistId}`,{withCredentials: true})
             console.log(response);
@@ -66,7 +66,7 @@ class Playlist {
         }
     }
 
-    async updatePlaylist({ playlistId, name, description }) {
+    async updatePlaylist({ playlistId, name, description }: { playlistId: string; name: string; description: string }) {
         try {
             const response = await axios.patch(`${baseRoute}/${playlistBaseRoute}/${playlistId}`,
                 {
@@ -83,7 +83,7 @@ class Playlist {
         }
     }
 
-    async deletePlaylist({ playlistId }) {
+    async deletePlaylist({ playlistId }: { playlistId: string }) {
         try {
             const response = await axios.delete(`${playlistBaseRoute}/${playlistId}`,{withCredentials: true})
             console.log(response);

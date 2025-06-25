@@ -4,7 +4,7 @@ import config from "../config/config.js";
 const dislikeBaseRoute = config.dislikes;
 
 class Dislikes {
-    async toggleVideoDislike({ videoId }) {
+    async toggleVideoDislike({ videoId }: { videoId: string }) {
         try {
             const response = await axios.post(`${dislikeBaseRoute}/toggle/v/${videoId}`);
             console.log(response);
@@ -15,7 +15,7 @@ class Dislikes {
         }
     }
 
-    async toggleCommentDislike({ commentId }) {
+    async toggleCommentDislike({ commentId }: { commentId: string }) {
         try {
             const response = await axios.post(`${dislikeBaseRoute}/toggle/c/${commentId}`);
             console.log(response);
@@ -26,7 +26,7 @@ class Dislikes {
         }
     }
 
-    async toggleTweetDislke({ tweetId }) {
+    async toggleTweetDislike({ tweetId }: { tweetId: string }) {
         try {
             const response = await axios.post(`${dislikeBaseRoute}/toggle/t/${tweetId}`);
             console.log(response);

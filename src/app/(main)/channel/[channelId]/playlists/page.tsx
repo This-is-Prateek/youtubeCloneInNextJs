@@ -13,7 +13,6 @@ export default function PlaylistPage() {
     getUserPlaylists,
     userPlaylists,
     loading,
-    error,
   } = usePlaylists();
 
   useEffect(() => {
@@ -21,7 +20,7 @@ export default function PlaylistPage() {
 
     const loadPlaylists = async () => {
       try {
-        await getUserPlaylists(channelId);
+        await getUserPlaylists(Array.isArray(channelId) ? channelId[0] : channelId);
       } catch (err) {
         console.error("Failed to load playlists:", err);
         toast.error("Failed to load playlists. Please try again later.");
@@ -29,7 +28,7 @@ export default function PlaylistPage() {
     };
 
     loadPlaylists();
-  }, [channelId]);
+  }, [channelId, getUserPlaylists]);
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

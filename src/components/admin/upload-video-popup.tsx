@@ -14,15 +14,15 @@ import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-export function UploadVideoPopup({ open, onClose, onUpload }) {
+export function UploadVideoPopup({ open, onClose, onUpload }: { open: boolean, onClose: () => void, onUpload: (data: any) => void }) {
   const { register, handleSubmit, reset, setValue, watch } = useForm();
   const [uploading, setUploading] = useState(false);
 
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const [videoPreview, setVideoPreview] = useState<string | null>(null);
 
-  const thumbnailInputRef = useRef(null);
-  const videoInputRef = useRef(null);
+  const thumbnailInputRef = useRef<HTMLInputElement>(null);
+  const videoInputRef = useRef<HTMLInputElement>(null);
 
   const thumbnailFile = watch("thumbnail");
   const videoFile = watch("videoFile");
@@ -52,21 +52,21 @@ export function UploadVideoPopup({ open, onClose, onUpload }) {
     }
   }, [videoFile]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     setUploading(true);
     await onUpload(data);
     setUploading(false);
     onClose();
   };
 
-  const handleDrop = (e, type) => {
+  const handleDrop = (e: any, type: string) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (!file) return;
     setValue(type, [file]);
   };
 
-  const preventDefault = (e) => e.preventDefault();
+  const preventDefault = (e: any) => e.preventDefault();
 
   return (
     <Dialog open={open} onOpenChange={onClose}>

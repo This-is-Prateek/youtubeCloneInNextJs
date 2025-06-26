@@ -18,7 +18,7 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
-const SideNavbar = (({ className, isCollapsed }:{className?:string, isCollapsed:boolean}) => {
+const SideNavbar = ({ className, isCollapsed }: { className?: string, isCollapsed: boolean }) => {
   const user = useSelector((state: RootState) => state.auth.userData);
   if (!user) return null; 
   const menuItems = [
@@ -76,7 +76,7 @@ const SideNavbar = (({ className, isCollapsed }:{className?:string, isCollapsed:
       </ScrollArea>
     </nav>
   );
-});
+};
 
 SideNavbar.displayName = "SideNavbar";
 export default SideNavbar;

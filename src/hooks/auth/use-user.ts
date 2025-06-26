@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import users from "@/apis/user";
-import { UseSelector } from "react-redux";
 
 interface User {
   _id: string;
@@ -18,6 +17,15 @@ interface User {
   __v: number;
 }
 
+interface ApiError {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
+  message?: string;
+}
+
 export function useUser() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -29,9 +37,10 @@ export function useUser() {
         setLoading(true);
         const res = await users.getCurrentUser(); 
         setUser(res); 
-      } catch (err: any) {
-        console.error("Error fetching user:", err);
-        setError(err?.response?.data?.message || "Failed to fetch user.");
+      } catch (err: unknown) {
+        const apiError = err as ApiError;
+        console.error("Error fetching user:", apiError);
+        setError(apiError?.response?.data?.message || "Failed to fetch user.");
       } finally {
         setLoading(false);
       }

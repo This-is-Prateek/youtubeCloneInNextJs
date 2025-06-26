@@ -17,6 +17,23 @@ import {
   TableRow,
 } from "@/lib/shared/components/ui/table";
 
+interface Video {
+  _id: string;
+  title: string;
+  description: string;
+  isPublished: boolean;
+}
+
+interface VideoTableProps {
+  videos: Video[];
+  onPublish: (videoId: string) => void;
+  onDelete: (videoId: string) => void;
+  onEdit: (videoId: string, data: { title: string; description: string; thumbnail?: FileList }) => void;
+  page: number;
+  setPage: (page: number) => void;
+  totalPages: number;
+}
+
 export function VideoTable({
   videos,
   onPublish,
@@ -25,8 +42,7 @@ export function VideoTable({
   page,
   setPage,
   totalPages,
-  totalVideos,
-}) {
+}: VideoTableProps) {
   const [editVideo, setEditVideo] = useState<string | null>(null);
   const [deleteVideo, setDeleteVideo] = useState<string | null>(null);
 
@@ -62,7 +78,7 @@ export function VideoTable({
                   {/* Publish Toggle */}
                   <Switch
                     checked={video.isPublished}
-                    onCheckedChange={(checked) => onPublish(video._id)}
+                    onCheckedChange={() => onPublish(video._id)}
                     className="cursor-pointer"
                   />
                 </TableCell>
@@ -70,14 +86,14 @@ export function VideoTable({
                   {/* Status Tag */}
                   {video.isPublished ? (
                     <Badge
-                      variant="success"
+                      variant="outline"
                       className="text-green-400 bg-green-900"
                     >
                       Published
                     </Badge>
                   ) : (
                     <Badge
-                      variant="warning"
+                      variant="outline"
                       className="text-yellow-400 bg-yellow-900"
                     >
                       Draft

@@ -24,12 +24,12 @@ export default function ChannelPostsPage() {
     const fetchTweets = async () => {
       try {
         await getUserTweets(channelId as string);
-      } catch (err) {
+      } catch {
         toast.error("Failed to fetch posts.");
       }
     }
     fetchTweets();
-  }, [channelId]);
+  }, [channelId, getUserTweets]);
 
   const handlePostSubmit = async () => {
     if (!newPost.trim()) return;
@@ -37,7 +37,7 @@ export default function ChannelPostsPage() {
     try {
       await createTweet(newPost);
       setNewPost("");
-    } catch (err) {
+    } catch {
       toast.error("Failed to create post.");
     }
   };

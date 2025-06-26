@@ -12,7 +12,7 @@ export default function ChannelVideosPage() {
 
   useEffect(() => {
     if (channelId) {
-      fetchChannelVideos(channelId);
+      fetchChannelVideos(channelId as string);
     }
 
   }, [channelId]);

@@ -11,7 +11,7 @@ import Link from "next/link";
 import { RootState } from "@/store/store";
 import { toast } from "sonner";
 
-const Header= ({ setIsCollapsed }:{setIsCollapsed:(arg0:boolean)=>void}) => {
+const Header = ({ setIsCollapsed }: { setIsCollapsed: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const status = useSelector((state: RootState) => state.auth.status);
@@ -80,7 +80,7 @@ const Header= ({ setIsCollapsed }:{setIsCollapsed:(arg0:boolean)=>void}) => {
           {status ? (
             <>
               <button
-                onClick={() => router.push(`/user/${user._id}/admin`)}
+                onClick={() => user && router.push(`/user/${user._id}/admin`)}
                 className="p-2 rounded-full hover:bg-white/10 transition-colors cursor-pointer"
               >
                 <Image

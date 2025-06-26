@@ -3,8 +3,16 @@
 import { useState } from "react";
 import tweets from "@/apis/tweet"; // adjust if the path is different
 
+interface Tweet {
+  _id: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  owner: string;
+}
+
 export const useTweets = () => {
-  const [tweetList, setTweetList] = useState([]);
+  const [tweetList, setTweetList] = useState<Tweet[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
 
@@ -15,7 +23,7 @@ export const useTweets = () => {
       const newTweet = await tweets.createTweet({ content });
       setTweetList((prev) => [newTweet, ...prev]);
       return newTweet;
-    } catch (err) {
+    } catch {
       setError("Failed to create tweet");
     } finally {
       setLoading(false);
@@ -29,7 +37,7 @@ export const useTweets = () => {
       const fetchedTweets = await tweets.getTweet({ id: userId });
       setTweetList(fetchedTweets);
       return fetchedTweets;
-    } catch (err) {
+    } catch {
       setError("Failed to fetch tweets");
     } finally {
       setLoading(false);
@@ -45,7 +53,7 @@ export const useTweets = () => {
         prev.map((tweet) => (tweet._id === id ? updated : tweet))
       );
       return updated;
-    } catch (err) {
+    } catch {
       setError("Failed to update tweet");
     } finally {
       setLoading(false);
@@ -58,7 +66,7 @@ export const useTweets = () => {
       setError(null);
       await tweets.deleteTweet({ id });
       setTweetList((prev) => prev.filter((tweet) => tweet._id !== id));
-    } catch (err) {
+    } catch {
       setError("Failed to delete tweet");
     } finally {
       setLoading(false);

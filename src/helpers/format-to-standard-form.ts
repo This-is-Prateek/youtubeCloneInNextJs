@@ -1,4 +1,4 @@
-export const formatNumber = (number) => {
+export const formatNumber = (number: number) => {
     if (number >= 1_000_000_000) {
         return (number / 1_000_000_000).toFixed(1) + 'B'; // Billion
     } else if (number >= 1_000_000) {

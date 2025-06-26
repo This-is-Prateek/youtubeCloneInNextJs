@@ -15,12 +15,12 @@ import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/lib/shared/components/ui/textarea";
 
-export function EditVideoPopup({ open, onClose, onSave, video }) {
+export function EditVideoPopup({ open, onClose, onSave, video }: { open: boolean, onClose: () => void, onSave: (data: any) => void, video: any }) {
   const { register, handleSubmit, reset, watch, setValue } = useForm();
   const [uploading, setUploading] = useState(false);
 
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
-  const thumbnailInputRef = useRef(null);
+  const thumbnailInputRef = useRef<HTMLInputElement>(null);
   const thumbnailFile = watch("thumbnail");
 
   useEffect(() => {
@@ -52,21 +52,21 @@ export function EditVideoPopup({ open, onClose, onSave, video }) {
     }
   }, [video, reset]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     setUploading(true);
     await onSave({ videoId: video._id, data });
     setUploading(false);
     onClose();
   };
 
-  const handleDrop = (e, type) => {
+  const handleDrop = (e: any, type: string) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (!file) return;
     setValue(type, [file]);
   };
 
-  const preventDefault = (e) => e.preventDefault();
+  const preventDefault = (e: any) => e.preventDefault();
 
   if (!video) return null;
 

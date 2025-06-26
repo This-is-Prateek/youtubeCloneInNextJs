@@ -14,7 +14,6 @@ export default function SubscribedChannelsPage() {
     getSubscriptions,
     subscribedChannels,
     loadingSubscriptions,
-    error,
   } = useSubscriptions();
 
   useEffect(() => {
@@ -24,14 +23,14 @@ export default function SubscribedChannelsPage() {
       console.error("Error fetching subscriptions:", err);
       toast.error("Failed to fetch subscriptions. Please try again later.");
     });
-  }, [channelId]);
+  }, [channelId, getSubscriptions]);
 
   if (loadingSubscriptions) {
     return <Spin/>;
   }
 
   if (subscribedChannels.length === 0) {
-    return <div className="text-muted-foreground text-center">You haven't subscribed to any channels yet.</div>;
+    return <div className="text-muted-foreground text-center">You haven&apos;t subscribed to any channels yet.</div>;
   }
 
   return (

@@ -12,10 +12,10 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Spin } from "antd";
 
-export function DeleteVideoPopup({ open, onClose, onSubmit, video }) {
+export function DeleteVideoPopup({ open, onClose, onSubmit, video }: { open: boolean, onClose: () => void, onSubmit: (videoId: string) => void, video: any }) {
   const [loading, setLoading] = useState(false);
 
-  const handleDelete = async (videoId) => {
+  const handleDelete = async (videoId: string) => {
     setLoading(true);
     try {
       await onSubmit(videoId);

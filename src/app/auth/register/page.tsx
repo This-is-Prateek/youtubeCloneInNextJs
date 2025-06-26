@@ -12,12 +12,34 @@ import { login } from "@/store/auth-slice";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+interface RegisterFormData {
+  fullName: string;
+  userName: string;
+  email: string;
+  password: string;
+}
+
+interface FormErrors {
+  [key: string]: {
+    message?: string;
+  };
+}
+
+interface ApiError {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
+  message?: string;
+}
+
 const Page = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<RegisterFormData>();
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: RegisterFormData) => {
     try {
       const result = await auth.createAccount({
         fullName: data.fullName,
@@ -33,15 +55,16 @@ const Page = () => {
         }
         router.push("/");
       }
-    } catch (err: any) {
-      const message = err?.response?.data?.message || "Something went wrong";
+    } catch (err: unknown) {
+      const apiError = err as ApiError;
+      const message = apiError?.response?.data?.message || "Something went wrong";
       toast.error(message);
     }
   };
 
   // Called when validation fails
-  const onError = (formErrors: any) => {
-    Object.values(formErrors).forEach((field: any) => {
+  const onError = (formErrors: FormErrors) => {
+    Object.values(formErrors).forEach((field) => {
       if (field?.message) {
         toast.error(field.message);
       }

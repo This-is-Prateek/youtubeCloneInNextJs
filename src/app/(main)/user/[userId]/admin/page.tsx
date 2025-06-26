@@ -10,7 +10,7 @@ import { useUser } from "@/hooks/auth/use-user";
 import { Spin } from "antd";
 
 export default function AdminPage() {
-  const { videoList, setVideoList, onSubmit, togglePublishStatus, handleDelete, handleEdit, page, setPage, totalPages, totalVideos } =
+  const { videoList, onSubmit, togglePublishStatus, handleDelete, handleEdit, page, setPage, totalPages, totalVideos } =
     useVideoPanel();
   const { user, loading, error } = useUser(); // Get user data from useUser hook
 

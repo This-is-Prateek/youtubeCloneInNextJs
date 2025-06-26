@@ -1,6 +1,6 @@
-export const timeAgo = (date) => {
+export const timeAgo = (date: string) => {
     const now = new Date(); // Get the current date and time
-    const diffInMs = now - new Date(date);
+    const diffInMs = now.getTime() - new Date(date).getTime();
     const diffInSec = Math.floor(diffInMs / 1000);
     const diffInMin = Math.floor(diffInSec / 60);
     const diffInHours = Math.floor(diffInMin / 60);

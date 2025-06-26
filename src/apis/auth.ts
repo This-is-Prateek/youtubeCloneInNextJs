@@ -28,6 +28,19 @@ interface AuthResponse {
   };
 }
 
+interface LoginResponse {
+  userName: string;
+  email: string;
+  fullName: string;
+  avatar: string | null;
+  coverImage: string | null;
+  watchHistory: string[];
+}
+
+interface LogoutResponse {
+  message: string;
+}
+
 class Auth {
   async createAccount({
     fullName,
@@ -60,7 +73,7 @@ class Auth {
     email = null,
     userName = null,
     password,
-  }: LoginParams): Promise<any> {
+  }: LoginParams): Promise<LoginResponse> {
     try {
       let response;
       console.log(config);
@@ -89,7 +102,7 @@ class Auth {
     }
   }
 
-  async logout(): Promise<any> {
+  async logout(): Promise<LogoutResponse> {
     try {
       const response = await axios.post(
         `${baseRoute}/${users}/logout`,

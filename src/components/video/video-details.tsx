@@ -2,7 +2,6 @@
 
 import { Button } from "@/lib/shared/components/ui/button";
 import Image from "next/image";
-import { ExpandableContentCell } from "@/components/shared/collapsible-content-cell"; // adjust path accordingly
 import { VideoDescription } from "./description";
 
 export function VideoDetails({

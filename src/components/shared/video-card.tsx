@@ -7,8 +7,19 @@ import { timeAgo } from "@/helpers/time-ago";
 import { formatNumber } from "@/helpers/format-to-standard-form";
 import { useRouter } from "next/navigation";
 
+interface VideoDetails {
+  _id: string;
+  title: string;
+  thumbnail: string;
+  owner: string;
+  ownerName: string;
+  channelImg?: string;
+  views: number;
+  createdAt: string;
+}
+
 interface VideoCardProps {
-  videoDetails: any;
+  videoDetails: VideoDetails;
   showChannelImage?: boolean;
   showChannelName?: boolean;
   variant?: "vertical" | "horizontal";

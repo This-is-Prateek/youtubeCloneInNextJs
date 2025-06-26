@@ -4,7 +4,18 @@
 import { VideoCard } from "@/components/shared/video-card";
 import { VideoSkeletonGrid } from "./video-skeleton-grid";
 
-export default function VideoGrid({videos, loading, error}) {
+interface Video {
+  _id: string;
+  title: string;
+  thumbnail: string;
+  owner: string;
+  ownerName: string;
+  channelImg?: string;
+  views: number;
+  createdAt: string;
+}
+
+export default function VideoGrid({ videos, loading, error }: { videos: Video[], loading: boolean, error: string | null }) {
 
   return (
     <main className="w-full h-full px-4 pt-6 flex justify-center">

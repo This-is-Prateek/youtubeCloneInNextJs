@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 interface ContentCellProps {
   content: string;
-  classname?: string;
+  className?: string;
 }
 
 export const ExpandableContentCell = ({ content, className }: ContentCellProps) => {

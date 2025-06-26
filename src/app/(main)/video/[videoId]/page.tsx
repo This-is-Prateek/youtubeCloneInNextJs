@@ -10,13 +10,38 @@ import commentsApi from "@/apis/comment";
 import { VideoDetails } from "@/components/video/video-details";
 import { VideoCard } from "@/components/shared/video-card";
 
+interface VideoDetail {
+  _id: string;
+  title: string;
+  description: string;
+  videoFile: string;
+  thumbnail: string;
+  owner: string;
+  ownerName: string;
+  channelImg: string;
+  views: number;
+  createdAt: string;
+  isPublished: boolean;
+}
+
+interface Comment {
+  _id: string;
+  content: string;
+  owner: {
+    _id: string;
+    fullName: string;
+    avatar: string;
+  };
+  createdAt: string;
+}
+
 export default function VideoPlayerPage() {
-  const [comments, setComments] = useState([]);
-  const [videoDetails, setVideoDetails] = useState();
-  const [allVideos, setAllVideos] = useState([]);
-  const videoId = useParams().videoId;
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [videoDetails, setVideoDetails] = useState<VideoDetail | null>(null);
+  const [allVideos, setAllVideos] = useState<VideoDetail[]>([]);
+  const params = useParams();
+  const videoId = params.videoId as string;
   const [loading, setLoading] = useState(true);
-  const [description, setDescription] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,7 +49,6 @@ export default function VideoPlayerPage() {
         const resVideo = await videos.getVideo({ videoId });
         if (resVideo) {
           setVideoDetails(resVideo);
-          setDescription(resVideo.description);
           console.log("Video details:", resVideo);
         } else {
           toast.error("Failed to fetch video details. Please try again later.");
@@ -33,7 +57,7 @@ export default function VideoPlayerPage() {
         const resAll = await videos.getAllVideos();
         if (resAll) {
           setAllVideos(
-            resAll.videos.filter((video) => video.isPublished === true)
+            resAll.videos.filter((video: VideoDetail) => video.isPublished === true)
           );
         } else {
           toast.error("Failed to fetch all videos. Please try again later.");
@@ -56,7 +80,7 @@ export default function VideoPlayerPage() {
     fetchData();
   }, [videoId]);
 
-  const handleCommentSubmit = async (newComment:string) => {
+  const handleCommentSubmit = async (newComment: string) => {
     try {
       const res = await commentsApi.addComment({
         videoId,
@@ -79,7 +103,7 @@ export default function VideoPlayerPage() {
         <div className="flex items-center justify-center w-full h-screen">
           <Spin size="large" />
         </div>
-      ) : (
+      ) : videoDetails ? (
         <>
           {/* Main Video Player */}
           <div className="flex flex-col flex-1 min-w-0">
@@ -121,6 +145,10 @@ export default function VideoPlayerPage() {
             </div>
           </div>
         </>
+      ) : (
+        <div className="flex items-center justify-center w-full h-screen">
+          <p className="text-red-500">Video not found</p>
+        </div>
       )}
     </div>
   );

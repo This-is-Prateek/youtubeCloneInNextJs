@@ -24,11 +24,17 @@ interface Video {
   isPublished: boolean;
 }
 
+interface VideoData {
+  title: string;
+  description: string;
+  thumbnail?: FileList;
+}
+
 interface VideoTableProps {
   videos: Video[];
   onPublish: (videoId: string) => void;
   onDelete: (videoId: string) => void;
-  onEdit: (videoId: string, data: { title: string; description: string; thumbnail?: FileList }) => void;
+  onEdit: ({ videoId, data }: { videoId: string; data: VideoData }) => void;
   page: number;
   setPage: (page: number) => void;
   totalPages: number;

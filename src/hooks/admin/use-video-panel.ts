@@ -1,30 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import videos from "@/apis/video";
+import videos, { Video } from "@/apis/video";
 
-interface Video {
-  _id: string;
-  title: string;
-  description: string;
-  thumbnail: string;
-  owner: string;
-  ownerName: string;
-  channelImg?: string;
-  views: number;
-  createdAt: string;
-  isPublished: boolean;
+interface ApiError {
+  message?: string;
 }
 
 interface VideoData {
   title: string;
   description: string;
-  videoFile?: FileList;
   thumbnail?: FileList;
-}
-
-interface ApiError {
-  message?: string;
+  videoFile?: FileList;
 }
 
 export const useVideoPanel = () => {

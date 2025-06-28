@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/lib/shared/components/ui/card";
+import Link from "next/link";
 
 interface AuthShellProps {
   title: string;
@@ -35,11 +36,11 @@ export default function AuthShell({ title, children }: AuthShellProps) {
           {children}
           {title === "Register" ? (
             <div className="text-center text-sm text-muted-foreground">
-              Already have an account? <a href="" className="text-blue-400 hover:text-blue-500">Sign in</a>
+              Already have an account? <Link href="/auth/login" className="text-blue-400 hover:text-blue-500">Sign in</Link>
             </div>
           ) : (
             <div className="text-center text-sm text-muted-foreground">
-              Don&apos;t have an account, <a href="" className="text-blue-400 hover:text-blue-500">Register</a>
+              Don&apos;t have an account, <Link href="/auth/register" className="text-blue-400 hover:text-blue-500">Register</Link>
             </div>
           )}
         </CardContent>

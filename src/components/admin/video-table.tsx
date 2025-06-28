@@ -38,6 +38,7 @@ interface VideoTableProps {
   page: number;
   setPage: (page: number) => void;
   totalPages: number;
+  totalVideos: number;
 }
 
 export function VideoTable({
@@ -48,6 +49,7 @@ export function VideoTable({
   page,
   setPage,
   totalPages,
+  totalVideos,
 }: VideoTableProps) {
   const [editVideo, setEditVideo] = useState<string | null>(null);
   const [deleteVideo, setDeleteVideo] = useState<string | null>(null);

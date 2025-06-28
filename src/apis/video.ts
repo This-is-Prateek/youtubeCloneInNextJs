@@ -4,8 +4,33 @@ import config from "../config/config";
 const videosBaseRoute = config.videos;
 const baseRoute = config.baseRoute;
 
+export interface Video {
+  _id: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  videoUrl: string;
+  channelImg: string;
+  createdAt: string;
+  duration: number;
+  isPublished: boolean;
+  owner: string;
+  ownerName: string;
+  updatedAt: string;
+  videoFile: string;
+  views: number;
+  __v: number;
+}
+
+export interface VideosResponse {
+  page: number;
+  totalPages: number;
+  totalVideos: number;
+  videos: Video[];
+}
+
 class Videos {
-  async getVideo({ videoId }: { videoId: string }) {
+  async getVideo({ videoId }: { videoId: string }): Promise<Video> {
     try {
       const response = await axios.get(`${baseRoute}/${videosBaseRoute}/${videoId}`, {
         withCredentials: true,
@@ -18,7 +43,7 @@ class Videos {
     }
   }
 
-  async getAllVideos() {
+  async getAllVideos(): Promise<VideosResponse> {
     try {
       const response = await axios.get(`${baseRoute}/${videosBaseRoute}/`, {
         withCredentials: true,
@@ -31,7 +56,7 @@ class Videos {
     }
   }
 
-  async getAllUserVideos({ page = 1}: { page?:number }) {
+  async getAllUserVideos({ page = 1 }: { page?: number }): Promise<VideosResponse> {
     try {
       const response = await axios.get(`${baseRoute}/${videosBaseRoute}/get-user-videos?page=${page}`, {
         withCredentials: true,
@@ -44,9 +69,9 @@ class Videos {
     }
   }
 
-  async getChannelVideos({ channelId, page = 1 }: { channelId: string; page?: number }) {
+  async getChannelVideos({ channelId, page = 1 }: { channelId: string; page?: number }): Promise<VideosResponse> {
     console.log('request received');
-    
+
     try {
       const response = await axios.get(`${baseRoute}/${videosBaseRoute}/get-user-videos/${channelId}?page=${page}`, {
         withCredentials: true,
@@ -59,7 +84,7 @@ class Videos {
     }
   }
 
-  async publishVideo(data: FormData) {
+  async publishVideo(data: FormData): Promise<Video> {
     try {
       const response = await axios.post(`${baseRoute}/${videosBaseRoute}/`, data, {
         headers: {
@@ -75,7 +100,7 @@ class Videos {
     }
   }
 
-  async updateVideo({ videoId }: { videoId: string }, data: FormData) {
+  async updateVideo({ videoId }: { videoId: string }, data: FormData): Promise<Video> {
     try {
       const response = await axios.patch(
         `${baseRoute}/${videosBaseRoute}/${videoId}`,

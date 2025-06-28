@@ -17,24 +17,20 @@ interface LoginParams {
   password: string;
 }
 
-interface AuthResponse {
-  data: {
-    userName: string;
-    email: string;
-    fullName: string;
-    avatar: string | null;
-    coverImage: string | null;
-    watchHistory: string[];
-  };
-}
-
-interface LoginResponse {
+interface User {
+  _id: string;
   userName: string;
   email: string;
   fullName: string;
   avatar: string | null;
   coverImage: string | null;
   watchHistory: string[];
+}
+
+interface LoginResponse {
+  user: User;
+  accessToken: string;
+  refreshToken: string;
 }
 
 interface LogoutResponse {
@@ -47,10 +43,10 @@ class Auth {
     email,
     userName,
     password,
-  }: CreateAccountParams): Promise<AuthResponse> {
+  }: CreateAccountParams): Promise<User> {
     try {
       const response = await axios.post(
-        `${users}/register`,
+        `${baseRoute}/${users}/register`,
         {
           fullName,
           email,
@@ -84,12 +80,14 @@ class Auth {
           { email, password },
           { withCredentials: true }
         );
+        console.log("login response", response);
       } else if (userName) {
         response = await axios.post(
-          `${users}/login`,
+          `${baseRoute}/${users}/login`,
           { userName, password },
           { withCredentials: true }
         );
+        console.log("login response", response);
       } else {
         throw new Error("Email or username must be provided");
       }

@@ -56,6 +56,7 @@ const Page = () => {
         router.push("/");
       }
     } catch (err: unknown) {
+      console.log("error", err);
       const apiError = err as ApiError;
       const message = apiError?.response?.data?.message || "Something went wrong";
       toast.error(message);
